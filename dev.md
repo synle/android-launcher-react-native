@@ -1,4 +1,4 @@
-# Developer Guide — Nova Launcher (React Native)
+# Developer Guide — Launcher (React Native)
 
 A React Native + Kotlin Android home screen launcher. UI in TypeScript, system integration in a Kotlin native module.
 
@@ -35,7 +35,7 @@ Hot reload only updates TypeScript/JS. Kotlin native module changes need a full 
 ## Install on phone (sideload)
 
 1. Go to the [Actions tab](../../actions) and open the latest successful **Build APK** run.
-2. Download `nova-launcher-rn-debug-apk` from the Artifacts section.
+2. Download `android-launcher-rn-debug-apk` from the Artifacts section.
 3. Unzip — you'll get `app-debug.apk`.
 4. Install:
    - **ADB**: `adb install -r app-debug.apk`

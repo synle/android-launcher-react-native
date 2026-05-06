@@ -1,4 +1,4 @@
-# Nova Launcher RN
+# Launcher (RN)
 
 A custom Android home screen launcher built with React Native (TypeScript) and Kotlin native modules. Targets **Android 15 (API 35)**, tested on **Samsung Galaxy S24 Ultra**, developed on **Windows 11**.
 
@@ -51,7 +51,7 @@ npm run android
 ```
 android-launcher-react-native/
 │
-│── index.js                     ★ JS ENTRY POINT — registers "NovaLauncherRN" component
+│── index.js                     ★ JS ENTRY POINT — registers "LauncherRN" component
 │── app.json                       App name + display name config
 │── package.json                   Dependencies, npm scripts
 │── tsconfig.json                  TypeScript config (strict, path alias @/* → src/*)
@@ -106,7 +106,7 @@ android-launcher-react-native/
             │       └── LauncherPackage.kt   Registers LauncherModule with React Native
             │
             └── res/values/
-                │── strings.xml          App name: "Nova Launcher RN"
+                │── strings.xml          App name: "Launcher (RN)"
                 └── styles.xml           Transparent wallpaper theme, edge-to-edge
 ```
 
@@ -194,7 +194,7 @@ How the app boots from zero to pixels on screen:
 ```
 ANDROID OS
     │
-    │  User presses Home button / selects "Nova Launcher RN"
+    │  User presses Home button / selects "Launcher (RN)"
     ▼
 AndroidManifest.xml
     │  Intent filter: HOME + DEFAULT
@@ -204,7 +204,7 @@ MainActivity.kt
     │  • onCreate():
     │     - WindowCompat.setDecorFitsSystemWindows(false)   ← edge-to-edge
     │     - Register OnBackInvokedCallback (no-op)          ← Android 15 back gesture
-    │  • getMainComponentName() → "NovaLauncherRN"
+    │  • getMainComponentName() → "LauncherRN"
     ▼
 MainApplication.kt
     │  • ReactNativeHost configured:
@@ -214,8 +214,8 @@ MainApplication.kt
     │  • SoLoader.init() — loads native libraries
     ▼
 index.js
-    │  AppRegistry.registerComponent("NovaLauncherRN", () => App)
-    │  Loads from app.json: name = "NovaLauncherRN"
+    │  AppRegistry.registerComponent("LauncherRN", () => App)
+    │  Loads from app.json: name = "LauncherRN"
     ▼
 src/App.tsx
     │  Root functional component mounts
@@ -480,7 +480,7 @@ AndroidManifest.xml declares:
 │  Android: "Multiple HOME apps detected"     │
 │                                             │
 │  ┌──────────────┐  ┌────────────────────┐   │
-│  │ One UI Home  │  │ Nova Launcher RN   │   │
+│  │ One UI Home  │  │ Launcher (RN)   │   │
 │  │ (Samsung)    │  │ (this app)         │   │
 │  └──────────────┘  └────────────────────┘   │
 │                                             │
@@ -491,7 +491,7 @@ AndroidManifest.xml declares:
                        │
                        ▼
 ┌─────────────────────────────────────────────┐
-│  Nova Launcher RN is now the default        │
+│  Launcher (RN) is now the default        │
 │  Home button → always opens this app        │
 │  MainActivity launches with singleTask      │
 │  (only one instance ever exists)            │
@@ -709,10 +709,10 @@ If you're new to this codebase, read files in this order:
 
 ## Setting as Default Launcher
 
-After installing, press the **Home button**. Android shows a launcher picker — select **Nova Launcher RN** and choose **Always**.
+After installing, press the **Home button**. Android shows a launcher picker — select **Launcher (RN)** and choose **Always**.
 
 If the picker doesn't appear:
-- **Samsung**: Settings → Apps → Default Apps → Home app → Nova Launcher RN
+- **Samsung**: Settings → Apps → Default Apps → Home app → Launcher (RN)
 - **Stock Android**: Settings → Apps → Default Apps → Home app
 
 ---

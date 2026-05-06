@@ -259,12 +259,12 @@ npm run android    # Terminal 2 — Build and install
 
 1. After the app is installed, press the **Home button** (circle or swipe up)
 2. Android will show a picker: "Complete action using..."
-3. Select **Nova Launcher RN**
+3. Select **Launcher (RN)**
 4. Choose **Always** (to set as default) or **Just once** (to test)
 
 ### If the picker doesn't appear:
 
-Go to **Settings → Apps → Default Apps → Home app** and select **Nova Launcher RN**.
+Go to **Settings → Apps → Default Apps → Home app** and select **Launcher (RN)**.
 
 ---
 
@@ -300,7 +300,7 @@ This immediately removes the app and Android falls back to the stock launcher.
 2. Long-press **Power Off**
 3. Tap **OK** to boot into Safe Mode
 4. Safe mode uses the stock launcher
-5. Go to **Settings → Apps → Nova Launcher RN → Uninstall**
+5. Go to **Settings → Apps → Launcher (RN) → Uninstall**
 6. Reboot normally
 
 ---

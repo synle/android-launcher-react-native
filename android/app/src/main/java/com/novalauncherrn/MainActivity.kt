@@ -11,7 +11,7 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate
 
 class MainActivity : ReactActivity() {
 
-    override fun getMainComponentName(): String = "NovaLauncherRN"
+    override fun getMainComponentName(): String = "LauncherRN"
 
     override fun createReactActivityDelegate(): ReactActivityDelegate =
         DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
