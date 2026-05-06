@@ -85,3 +85,32 @@ The TypeScript side wraps this in `src/native/LauncherModule.ts` with type safet
 - Drag-and-drop is a UI placeholder only (`DragOverlay.tsx`) — long-press shows overlay but no reordering logic exists yet
 - App order is not persisted; resets to alphabetical on each load
 - Debug keystore used for both debug and release builds
+
+## CI
+
+`.github/workflows/build.yml` runs on push to `main`/`master`, PRs, and `workflow_dispatch`. Steps: setup Node 20 + JDK 17, `npm install --legacy-peer-deps`, setup Gradle 8.6, **generate `android/app/debug.keystore` on the fly** (it's not checked in), then `gradle assembleDebug` from `android/`. Uploads `android-launcher-rn-debug-apk`.
+
+See `dev.md` for sideload instructions.
+
+## Version Pins (do not bump blindly)
+
+The `package.json` deliberately pins these:
+
+- `react-native: 0.73.6`
+- `react-native-reanimated: 3.16.7` — newer (3.17+) requires RN 0.78+ and will fail with "Unsupported React Native version".
+- `react-native-gesture-handler: 2.16.2` — last known-good with this RN.
+
+Bumping any of these requires bumping React Native too.
+
+## Gradle Wiring
+
+The RN gradle plugin is loaded via:
+
+- `android/settings.gradle` — top-level `includeBuild('../node_modules/@react-native/gradle-plugin')` (substitutes the maven coord).
+- `android/build.gradle` — `classpath("com.facebook.react:react-native-gradle-plugin")` in the `buildscript` block (matches the substituted coord).
+
+This is the legacy `apply plugin:` style. Don't move `includeBuild` into `pluginManagement` without also converting to the `plugins { id … }` DSL — that combo broke the build during initial CI setup.
+
+## Branding Note
+
+User-visible strings show **"Launcher (RN)"** (was renamed from "Nova Launcher RN" — trademarked). React component name in `app.json`/`MainActivity.kt` is `LauncherRN`. The internal Java package `com.novalauncherrn` retains the codename and is not user-visible. Don't reintroduce "Nova Launcher" as a display name.
