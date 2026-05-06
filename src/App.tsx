@@ -13,6 +13,7 @@ import { SearchBar } from './components/SearchBar';
 import { DragOverlay } from './components/DragOverlay';
 import { useInstalledApps } from './hooks/useInstalledApps';
 import { DEFAULT_GRID_CONFIG, COLORS } from './utils/constants';
+import { filterApps } from './utils/appFilter';
 import type { InstalledApp, DragState, GridConfig } from './types/app';
 
 export default function App() {
@@ -26,16 +27,10 @@ export default function App() {
     currentIndex: -1,
   });
 
-  const filteredApps = useMemo(() => {
-    if (!searchQuery.trim()) return apps;
-
-    const query = searchQuery.toLowerCase().trim();
-    return apps.filter(
-      app =>
-        app.appName.toLowerCase().includes(query) ||
-        app.packageName.toLowerCase().includes(query),
-    );
-  }, [apps, searchQuery]);
+  const filteredApps = useMemo(
+    () => filterApps(apps, searchQuery),
+    [apps, searchQuery],
+  );
 
   const handleAppLongPress = useCallback(
     (app: InstalledApp) => {
