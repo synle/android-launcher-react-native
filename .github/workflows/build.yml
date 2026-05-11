@@ -47,13 +47,13 @@ jobs:
               -dname "CN=Android Debug,O=Android,C=US"
           fi
 
-      - name: Build debug APK
+      - name: Build release APK
         working-directory: android
-        run: gradle assembleDebug --no-daemon
+        run: gradle assembleRelease --no-daemon
 
-      - name: Upload debug APK
+      - name: Upload release APK
         uses: actions/upload-artifact@v7
         with:
-          name: android-launcher-rn-debug-apk
-          path: android/app/build/outputs/apk/debug/*.apk
+          name: android-launcher-rn-release-apk
+          path: android/app/build/outputs/apk/release/*.apk
           if-no-files-found: error

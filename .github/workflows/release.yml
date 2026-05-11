@@ -52,14 +52,14 @@ jobs:
               -dname "CN=Android Debug,O=Android,C=US"
           fi
 
-      - name: Build debug APK
+      - name: Build release APK
         working-directory: android
-        run: gradle assembleDebug --no-daemon
+        run: gradle assembleRelease --no-daemon
 
       - name: Stage APK
         run: |
           mkdir -p release-apks
-          cp android/app/build/outputs/apk/debug/app-debug.apk release-apks/android-launcher-rn-${{ github.event.inputs.tag }}-debug.apk
+          cp android/app/build/outputs/apk/release/app-release.apk release-apks/android-launcher-rn-${{ github.event.inputs.tag }}-release.apk
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
