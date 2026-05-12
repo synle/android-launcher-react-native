@@ -33,7 +33,7 @@ jobs:
           java-version: '17'
 
       - name: Install npm dependencies
-        run: npm install --legacy-peer-deps
+        run: npm ci --legacy-peer-deps || npm install --no-fund --prefer-offline --legacy-peer-deps
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
