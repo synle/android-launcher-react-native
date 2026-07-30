@@ -11,6 +11,7 @@ npm run lint               # ESLint (*.ts, *.tsx)
 ```
 
 Gradle commands differ by platform:
+
 ```bash
 # Windows (PowerShell)
 npm run clean:win          # cd android && gradlew.bat clean
@@ -28,11 +29,13 @@ After changing Kotlin native code, you must rebuild with `npm run android` — h
 This is a React Native Android launcher (home screen replacement) with a Kotlin native module bridge.
 
 **Two layers:**
+
 - **TypeScript UI** (`src/`) — React Native components, hooks, and state management
 - **Kotlin native module** (`android/app/src/main/java/com/novalauncherrn/launcher/`) — Android system integration via `PackageManager` and `Intent`
 
 **Native bridge flow:**
 `LauncherModule.kt` exposes three methods to JS via React Native's `NativeModules`:
+
 - `getInstalledApps(iconSize)` — queries all launchable apps, returns array of `{packageName, appName, icon}` where icon is base64-encoded PNG
 - `launchApp(packageName)` — launches an app via Intent
 - `openLauncherPicker()` — opens Android's default launcher chooser

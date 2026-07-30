@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
-import { Image, StyleSheet, View, Text } from 'react-native';
-import type { DragState } from '../types/app';
+import React, { memo } from "react";
+import { Image, StyleSheet, View, Text } from "react-native";
+import type { DragState } from "../types/app";
 
 /**
  * Drag-and-drop overlay placeholder.
@@ -42,14 +42,14 @@ function DragOverlayComponent({ dragState }: DragOverlayProps) {
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   dragContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: 24,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     borderRadius: 16,
   },
   dragIcon: {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   hint: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 14,
     opacity: 0.8,
   },

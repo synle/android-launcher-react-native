@@ -1,5 +1,5 @@
-import { NativeModules } from 'react-native';
-import type { InstalledApp } from '../types/app';
+import { NativeModules } from "react-native";
+import type { InstalledApp } from "../types/app";
 
 interface LauncherModuleInterface {
   getInstalledApps(iconSize: number): Promise<InstalledApp[]>;
@@ -11,8 +11,8 @@ const { LauncherModule } = NativeModules;
 
 if (!LauncherModule) {
   throw new Error(
-    'LauncherModule native module is not linked. ' +
-      'Make sure you rebuilt the app after adding the native module.',
+    "LauncherModule native module is not linked. " +
+      "Make sure you rebuilt the app after adding the native module.",
   );
 }
 

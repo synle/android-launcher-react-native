@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
-import { TextInput, StyleSheet, View } from 'react-native';
-import { COLORS, GRID_HORIZONTAL_PADDING } from '../utils/constants';
+import React, { memo } from "react";
+import { TextInput, StyleSheet, View } from "react-native";
+import { COLORS, GRID_HORIZONTAL_PADDING } from "../utils/constants";
 
 interface SearchBarProps {
   value: string;

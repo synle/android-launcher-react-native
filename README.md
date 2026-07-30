@@ -588,38 +588,38 @@ How data moves through the entire system:
 
 ## Key Files Reference
 
-| File | Purpose | Entry? |
-|------|---------|--------|
-| `index.js` | Registers root component with `AppRegistry` | JS entry |
-| `src/App.tsx` | Main screen — search, grid, drag, loading/error states | UI entry |
-| `src/native/LauncherModule.ts` | Type-safe TS wrapper for Kotlin native module | Bridge |
-| `src/hooks/useInstalledApps.ts` | Loads apps on mount, refreshes on foreground | Data |
-| `src/components/AppGrid.tsx` | Optimized FlatList grid (4 columns) | UI |
-| `src/components/AppIcon.tsx` | Tap-to-launch, long-press, base64 icon render | UI |
-| `src/components/SearchBar.tsx` | Search input — filters by name or package | UI |
-| `src/components/DragOverlay.tsx` | Drag-and-drop placeholder (UI only, no logic) | UI |
-| `src/types/app.ts` | `InstalledApp`, `GridConfig`, `DragState` interfaces | Types |
-| `src/utils/constants.ts` | Grid defaults (4 col, 56px), colors, cell width calc | Config |
-| `AndroidManifest.xml` | HOME + DEFAULT intent filters, QUERY permissions | System |
-| `MainActivity.kt` | singleTask, back-press disabled, edge-to-edge | System |
-| `MainApplication.kt` | RN host, LauncherPackage registration, Hermes | System |
-| `LauncherModule.kt` | getInstalledApps, launchApp, openLauncherPicker | Bridge |
-| `LauncherPackage.kt` | Registers LauncherModule with React Native | Bridge |
-| `styles.xml` | Transparent wallpaper theme, translucent bars | Theme |
+| File                             | Purpose                                                | Entry?   |
+| -------------------------------- | ------------------------------------------------------ | -------- |
+| `index.js`                       | Registers root component with `AppRegistry`            | JS entry |
+| `src/App.tsx`                    | Main screen — search, grid, drag, loading/error states | UI entry |
+| `src/native/LauncherModule.ts`   | Type-safe TS wrapper for Kotlin native module          | Bridge   |
+| `src/hooks/useInstalledApps.ts`  | Loads apps on mount, refreshes on foreground           | Data     |
+| `src/components/AppGrid.tsx`     | Optimized FlatList grid (4 columns)                    | UI       |
+| `src/components/AppIcon.tsx`     | Tap-to-launch, long-press, base64 icon render          | UI       |
+| `src/components/SearchBar.tsx`   | Search input — filters by name or package              | UI       |
+| `src/components/DragOverlay.tsx` | Drag-and-drop placeholder (UI only, no logic)          | UI       |
+| `src/types/app.ts`               | `InstalledApp`, `GridConfig`, `DragState` interfaces   | Types    |
+| `src/utils/constants.ts`         | Grid defaults (4 col, 56px), colors, cell width calc   | Config   |
+| `AndroidManifest.xml`            | HOME + DEFAULT intent filters, QUERY permissions       | System   |
+| `MainActivity.kt`                | singleTask, back-press disabled, edge-to-edge          | System   |
+| `MainApplication.kt`             | RN host, LauncherPackage registration, Hermes          | System   |
+| `LauncherModule.kt`              | getInstalledApps, launchApp, openLauncherPicker        | Bridge   |
+| `LauncherPackage.kt`             | Registers LauncherModule with React Native             | Bridge   |
+| `styles.xml`                     | Transparent wallpaper theme, translucent bars          | Theme    |
 
 ---
 
 ## Available Commands
 
-| Command | Platform | Description |
-|---------|----------|-------------|
-| `npm start` | All | Start Metro bundler |
-| `npm run android` | All | Build and install on device/emulator |
-| `npm run lint` | All | ESLint on TypeScript files |
-| `npm run clean:win` | Windows | Clean Gradle build (`gradlew.bat`) |
-| `npm run clean:unix` | macOS/Linux | Clean Gradle build (`./gradlew`) |
-| `npm run build:release:win` | Windows | Release APK (`gradlew.bat`) |
-| `npm run build:release:unix` | macOS/Linux | Release APK (`./gradlew`) |
+| Command                      | Platform    | Description                          |
+| ---------------------------- | ----------- | ------------------------------------ |
+| `npm start`                  | All         | Start Metro bundler                  |
+| `npm run android`            | All         | Build and install on device/emulator |
+| `npm run lint`               | All         | ESLint on TypeScript files           |
+| `npm run clean:win`          | Windows     | Clean Gradle build (`gradlew.bat`)   |
+| `npm run clean:unix`         | macOS/Linux | Clean Gradle build (`./gradlew`)     |
+| `npm run build:release:win`  | Windows     | Release APK (`gradlew.bat`)          |
+| `npm run build:release:unix` | macOS/Linux | Release APK (`./gradlew`)            |
 
 Direct Gradle (from `android/` directory):
 
@@ -675,32 +675,32 @@ If you're new to this codebase, read files in this order:
 
 ## Limitations
 
-| Area | Detail |
-|------|--------|
-| Cold start | 500-1500ms (Hermes + JS bundle init). Native launchers: ~100ms. |
-| Memory | Base64 icons use ~2-3x memory vs native Bitmaps. ~80-120MB for 150 apps. |
-| System gestures | Cannot intercept home, back, or recents. Android handles these first. |
-| Widgets | Not implemented. Requires native `AppWidgetHost` module. |
-| Notification shade | Cannot swipe down from launcher. Needs `WindowManager` hook. |
-| Background | JS thread suspends when backgrounded. Brief delay on resume. |
-| Drag-and-drop | UI placeholder only. No reorder logic or persistence. |
-| App order | Alphabetical only. Not persisted. Resets on reload. |
+| Area               | Detail                                                                   |
+| ------------------ | ------------------------------------------------------------------------ |
+| Cold start         | 500-1500ms (Hermes + JS bundle init). Native launchers: ~100ms.          |
+| Memory             | Base64 icons use ~2-3x memory vs native Bitmaps. ~80-120MB for 150 apps. |
+| System gestures    | Cannot intercept home, back, or recents. Android handles these first.    |
+| Widgets            | Not implemented. Requires native `AppWidgetHost` module.                 |
+| Notification shade | Cannot swipe down from launcher. Needs `WindowManager` hook.             |
+| Background         | JS thread suspends when backgrounded. Brief delay on resume.             |
+| Drag-and-drop      | UI placeholder only. No reorder logic or persistence.                    |
+| App order          | Alphabetical only. Not persisted. Resets on reload.                      |
 
 ---
 
 ## React Native vs Native Kotlin
 
-| Criteria | React Native | Native Kotlin |
-|----------|-------------|---------------|
-| Cold start | 500-1500ms | 100-200ms |
-| Scroll perf | Good (60fps) | Excellent |
-| Memory | Higher (base64 bridge) | Optimal |
-| Widgets | Needs native module | Built-in `AppWidgetHost` |
-| Gestures | Limited | Full system integration |
-| Dev speed | Fast (hot reload) | Moderate (compile cycle) |
-| Production ready | MVP / personal use | Yes |
-| Maintainability | RN upgrades risk breakage | Stable Android APIs |
-| **Verdict** | **6/10** for production | **9/10** for production |
+| Criteria         | React Native              | Native Kotlin            |
+| ---------------- | ------------------------- | ------------------------ |
+| Cold start       | 500-1500ms                | 100-200ms                |
+| Scroll perf      | Good (60fps)              | Excellent                |
+| Memory           | Higher (base64 bridge)    | Optimal                  |
+| Widgets          | Needs native module       | Built-in `AppWidgetHost` |
+| Gestures         | Limited                   | Full system integration  |
+| Dev speed        | Fast (hot reload)         | Moderate (compile cycle) |
+| Production ready | MVP / personal use        | Yes                      |
+| Maintainability  | RN upgrades risk breakage | Stable Android APIs      |
+| **Verdict**      | **6/10** for production   | **9/10** for production  |
 
 **Use React Native** for prototyping, personal use, or when you need fast UI iteration.
 **Use Native Kotlin** for a public, production-grade launcher with widgets and system gestures.
@@ -712,6 +712,7 @@ If you're new to this codebase, read files in this order:
 After installing, press the **Home button**. Android shows a launcher picker — select **Launcher (RN)** and choose **Always**.
 
 If the picker doesn't appear:
+
 - **Samsung**: Settings → Apps → Default Apps → Home app → Launcher (RN)
 - **Stock Android**: Settings → Apps → Default Apps → Home app
 
@@ -770,6 +771,7 @@ Download from https://nodejs.org — pick **v20 LTS** (not v22, not v18).
 Run the `.msi` installer. Ensure **"Add to PATH"** is checked.
 
 Verify in a **new** PowerShell window:
+
 ```powershell
 node --version    # Expected: v20.x.x
 npm --version     # Expected: 10.x.x
@@ -780,16 +782,19 @@ npm --version     # Expected: 10.x.x
 Download **Eclipse Temurin JDK 17** from https://adoptium.net/temurin/releases/?version=17&os=windows&arch=x64&package=jdk
 
 Run the `.msi` installer. During installation check:
+
 - **Set JAVA_HOME variable**
 - **Add to PATH**
 
 Verify:
+
 ```powershell
 java -version        # Expected: openjdk version "17.x.x"
 echo $env:JAVA_HOME  # Expected: C:\Program Files\Eclipse Adoptium\jdk-17.x.x-hotspot
 ```
 
 If `JAVA_HOME` is empty or wrong:
+
 ```powershell
 # Find where JDK 17 was installed
 Get-ChildItem "C:\Program Files\Eclipse Adoptium"
@@ -812,10 +817,12 @@ Run installer with all defaults. When the setup wizard runs:
 Then go to **File → Settings → Languages & Frameworks → Android SDK**:
 
 **SDK Platforms tab** — check:
+
 - Android 15.0 (VanillaIceCream) — API 35
 - Android 14.0 (UpsideDownCake) — API 34
 
 **SDK Tools tab** — check:
+
 - Android SDK Build-Tools 35.0.0
 - Android SDK Command-line Tools (latest)
 - Android SDK Platform-Tools
@@ -826,6 +833,7 @@ Then go to **File → Settings → Languages & Frameworks → Android SDK**:
 Click **Apply** and wait for downloads.
 
 Note the SDK path shown at the top. Default:
+
 ```
 C:\Users\YOUR_USERNAME\AppData\Local\Android\Sdk
 ```
@@ -848,6 +856,7 @@ if ($currentPath -notlike "*Android\Sdk\platform-tools*") {
 ```
 
 Restart PowerShell. Verify:
+
 ```powershell
 echo $env:ANDROID_HOME    # C:\Users\...\AppData\Local\Android\Sdk
 adb --version              # Android Debug Bridge version 1.0.xx
@@ -864,6 +873,7 @@ Download from https://developer.samsung.com/android-usb-driver → run installer
 ### Step 7: Add Antivirus Exclusions
 
 PowerShell as Administrator:
+
 ```powershell
 Add-MpExclusion -Path "$env:LOCALAPPDATA\Android\Sdk"
 Add-MpExclusion -Path "$env:USERPROFILE\.gradle"
@@ -895,21 +905,26 @@ Takes 2-5 minutes. If you get path-length errors, go back to Step 1.
 ### Step 10: Connect Galaxy S24 Ultra
 
 **Enable Developer Options:**
+
 1. Settings → About Phone → Software Information
 2. Tap **Build Number** 7 times → enter PIN → "Developer mode enabled"
 
 **Enable USB Debugging:**
+
 1. Settings → Developer Options → **USB Debugging** ON → OK
 
 **Samsung-specific — set USB mode:**
+
 1. Developer Options → **Default USB Configuration** → **File Transfer**
 
 **Connect:**
+
 1. Use the USB-C cable that came with the phone
 2. Phone shows "Allow USB debugging?" → tap **Allow** + check "Always allow"
 3. If USB mode popup appears → select **File Transfer**
 
 **Verify:**
+
 ```powershell
 adb devices
 # Expected:
@@ -917,6 +932,7 @@ adb devices
 ```
 
 If nothing:
+
 ```powershell
 adb kill-server
 adb start-server
@@ -928,12 +944,14 @@ If `unauthorized`: check phone for the Allow prompt. If no prompt: Developer Opt
 ### Step 11: Build and Run
 
 **Terminal 1 — Metro:**
+
 ```powershell
 cd C:\path\to\android-launcher-react-native
 npm start
 ```
 
 **Terminal 2 — Build:**
+
 ```powershell
 cd C:\path\to\android-launcher-react-native
 npm run android
@@ -942,6 +960,7 @@ npm run android
 First build: **5-12 minutes** on Windows. Subsequent: 1-2 minutes.
 
 After the app launches on phone:
+
 ```powershell
 adb reverse tcp:8081 tcp:8081
 ```
@@ -961,6 +980,7 @@ Or shake the phone (Samsung may have shake disabled — use the ADB command).
 ### Debugging Options
 
 **Chrome DevTools (simplest):**
+
 1. Dev menu → **"Debug with Chrome"** or **"Open Debugger"**
 2. Chrome opens `http://localhost:8081/debugger-ui/`
 3. Press F12 → Console (logs), Sources (breakpoints), Network
@@ -969,12 +989,15 @@ Or shake the phone (Samsung may have shake disabled — use the ADB command).
 Download from https://fbflipper.com/ — provides React DevTools, network inspector, layout inspector, Hermes debugger.
 
 **React DevTools standalone:**
+
 ```powershell
 npx react-devtools
 ```
+
 Then dev menu → "Debug with React DevTools".
 
 **ADB Logcat (native + JS logs):**
+
 ```powershell
 # React Native logs
 adb logcat -s ReactNative:V ReactNativeJS:V
@@ -991,6 +1014,7 @@ adb logcat --pid=12345
 
 1. Install "React Native Tools" extension
 2. Create `.vscode/launch.json`:
+
 ```json
 {
   "version": "0.2.0",
@@ -1005,6 +1029,7 @@ adb logcat --pid=12345
   ]
 }
 ```
+
 3. Start Metro + app, then press F5 in VS Code
 4. Set breakpoints directly in `.tsx` files
 
@@ -1053,29 +1078,29 @@ adb shell pm clear com.novalauncherrn   # Clear app data
 
 This project targets API 35 with these specific accommodations:
 
-| Android 15 Behavior | Implementation |
-|---------------------|----------------|
-| Edge-to-edge enforced | `WindowCompat.setDecorFitsSystemWindows(window, false)` in `MainActivity.kt` |
-| Transparent system bars | `android:statusBarColor` + `android:navigationBarColor` = transparent in `styles.xml` |
-| Predictive back gesture | `android:enableOnBackInvokedCallback="true"` in manifest + `OnBackInvokedCallback` in `MainActivity.kt` |
-| Package visibility | `<queries>` block in manifest for `MAIN/LAUNCHER` intent |
-| Background launch restrictions | `FLAG_ACTIVITY_NEW_TASK` on all launched intents in `LauncherModule.kt` |
+| Android 15 Behavior            | Implementation                                                                                          |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| Edge-to-edge enforced          | `WindowCompat.setDecorFitsSystemWindows(window, false)` in `MainActivity.kt`                            |
+| Transparent system bars        | `android:statusBarColor` + `android:navigationBarColor` = transparent in `styles.xml`                   |
+| Predictive back gesture        | `android:enableOnBackInvokedCallback="true"` in manifest + `OnBackInvokedCallback` in `MainActivity.kt` |
+| Package visibility             | `<queries>` block in manifest for `MAIN/LAUNCHER` intent                                                |
+| Background launch restrictions | `FLAG_ACTIVITY_NEW_TASK` on all launched intents in `LauncherModule.kt`                                 |
 
 ---
 
 ## Samsung Galaxy S24 Ultra Notes
 
-| Topic | Detail |
-|-------|--------|
-| Stock launcher package | `com.sec.android.app.launcher` (use for ADB reset) |
-| Screen resolution | 3120x1440 (QHD+) — grid auto-adapts via `Dimensions.get('window')` |
-| S Pen | Hover and Air Actions don't trigger RN touch events. Long-press with S Pen works. |
-| One UI gestures | Samsung's swipe navigation takes priority. Launcher cannot intercept. |
-| Good Lock / Home Up | Can interfere with custom launchers. Disable if installed. |
-| Secure Folder | Apps inside Secure Folder are invisible to `PackageManager`. By design. |
-| Dual Messenger | Cloned apps appear as separate entries with different package names. |
-| Launcher reset on reboot | One UI may reset default launcher. Re-select after reboot. |
-| USB config | Set Default USB Configuration to **File Transfer** in Developer Options. |
+| Topic                    | Detail                                                                            |
+| ------------------------ | --------------------------------------------------------------------------------- |
+| Stock launcher package   | `com.sec.android.app.launcher` (use for ADB reset)                                |
+| Screen resolution        | 3120x1440 (QHD+) — grid auto-adapts via `Dimensions.get('window')`                |
+| S Pen                    | Hover and Air Actions don't trigger RN touch events. Long-press with S Pen works. |
+| One UI gestures          | Samsung's swipe navigation takes priority. Launcher cannot intercept.             |
+| Good Lock / Home Up      | Can interfere with custom launchers. Disable if installed.                        |
+| Secure Folder            | Apps inside Secure Folder are invisible to `PackageManager`. By design.           |
+| Dual Messenger           | Cloned apps appear as separate entries with different package names.              |
+| Launcher reset on reboot | One UI may reset default launcher. Re-select after reboot.                        |
+| USB config               | Set Default USB Configuration to **File Transfer** in Developer Options.          |
 
 ---
 
@@ -1083,32 +1108,32 @@ This project targets API 35 with these specific accommodations:
 
 ### Windows Build Issues
 
-| Problem | Solution |
-|---------|----------|
-| Path length errors during `npm install` | Enable long paths (Step 1 of Windows setup) and restart |
-| "SDK location not found" | Create `android\local.properties` with `sdk.dir=C\:\\Users\\NAME\\AppData\\Local\\Android\\Sdk` |
-| "Could not determine java version" | Install JDK 17, set `JAVA_HOME`, restart PowerShell |
-| `'react-native' is not recognized` | Use `npx react-native run-android` instead |
+| Problem                                   | Solution                                                                                                       |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Path length errors during `npm install`   | Enable long paths (Step 1 of Windows setup) and restart                                                        |
+| "SDK location not found"                  | Create `android\local.properties` with `sdk.dir=C\:\\Users\\NAME\\AppData\\Local\\Android\\Sdk`                |
+| "Could not determine java version"        | Install JDK 17, set `JAVA_HOME`, restart PowerShell                                                            |
+| `'react-native' is not recognized`        | Use `npx react-native run-android` instead                                                                     |
 | Build extremely slow (10+ min every time) | Add antivirus exclusions. Use SSD. Enable Gradle caching: add `org.gradle.caching=true` to `gradle.properties` |
-| EPERM errors from Metro | Close Android Studio and file explorers in project dir. Run `npm start -- --reset-cache` |
+| EPERM errors from Metro                   | Close Android Studio and file explorers in project dir. Run `npm start -- --reset-cache`                       |
 
 ### Phone Connection Issues
 
-| Problem | Solution |
-|---------|----------|
-| `adb devices` empty | Use a data-capable USB-C cable. Try different port. Install Samsung USB driver. |
-| `unauthorized` | Unlock phone, tap Allow on debugging prompt. If no prompt: revoke authorizations in Dev Options. |
-| `offline` | `adb kill-server && adb start-server`. Unplug and replug. |
-| App shows white/red screen | Run `adb reverse tcp:8081 tcp:8081`. Ensure Metro is running. |
-| App crashes immediately | Check `adb logcat -s ReactNative:V ReactNativeJS:V`. Common: Metro not running. |
-| Port 8081 in use | `netstat -ano \| findstr :8081` → `taskkill /PID XXXX /F` |
-| Dev menu won't open on shake | Samsung may disable shake. Use `adb shell input keyevent 82`. |
+| Problem                      | Solution                                                                                         |
+| ---------------------------- | ------------------------------------------------------------------------------------------------ |
+| `adb devices` empty          | Use a data-capable USB-C cable. Try different port. Install Samsung USB driver.                  |
+| `unauthorized`               | Unlock phone, tap Allow on debugging prompt. If no prompt: revoke authorizations in Dev Options. |
+| `offline`                    | `adb kill-server && adb start-server`. Unplug and replug.                                        |
+| App shows white/red screen   | Run `adb reverse tcp:8081 tcp:8081`. Ensure Metro is running.                                    |
+| App crashes immediately      | Check `adb logcat -s ReactNative:V ReactNativeJS:V`. Common: Metro not running.                  |
+| Port 8081 in use             | `netstat -ano \| findstr :8081` → `taskkill /PID XXXX /F`                                        |
+| Dev menu won't open on shake | Samsung may disable shake. Use `adb shell input keyevent 82`.                                    |
 
 ### Samsung-Specific Issues
 
-| Problem | Solution |
-|---------|----------|
-| "App not installed" error | Settings → Security → Install unknown apps → allow ADB source |
-| Launcher resets after reboot | Re-select in Settings → Apps → Default Apps → Home app |
+| Problem                         | Solution                                                      |
+| ------------------------------- | ------------------------------------------------------------- |
+| "App not installed" error       | Settings → Security → Install unknown apps → allow ADB source |
+| Launcher resets after reboot    | Re-select in Settings → Apps → Default Apps → Home app        |
 | USB defaults to "Charging only" | Developer Options → Default USB Configuration → File Transfer |
-| Good Lock interferes | Disable "Home Up" module in Good Lock |
+| Good Lock interferes            | Disable "Home Up" module in Good Lock                         |

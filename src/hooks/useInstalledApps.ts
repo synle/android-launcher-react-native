@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { AppState, AppStateStatus } from 'react-native';
-import LauncherModule from '../native/LauncherModule';
-import type { InstalledApp } from '../types/app';
+import { useState, useEffect, useCallback, useRef } from "react";
+import { AppState, AppStateStatus } from "react-native";
+import LauncherModule from "../native/LauncherModule";
+import type { InstalledApp } from "../types/app";
 
 const ICON_SIZE_PX = 192;
 
@@ -26,14 +26,14 @@ export function useInstalledApps(): UseInstalledAppsResult {
 
       // Sort alphabetically by app name
       const sorted = [...installedApps].sort((a, b) =>
-        a.appName.localeCompare(b.appName, undefined, { sensitivity: 'base' }),
+        a.appName.localeCompare(b.appName, undefined, { sensitivity: "base" }),
       );
 
       setApps(sorted);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Failed to load apps';
+      const message = err instanceof Error ? err.message : "Failed to load apps";
       setError(message);
-      console.error('useInstalledApps:', message);
+      console.error("useInstalledApps:", message);
     } finally {
       setLoading(false);
     }
@@ -41,18 +41,12 @@ export function useInstalledApps(): UseInstalledAppsResult {
 
   // Reload when app returns to foreground (user may have installed/uninstalled apps)
   useEffect(() => {
-    const subscription = AppState.addEventListener(
-      'change',
-      (nextState: AppStateStatus) => {
-        if (
-          appStateRef.current.match(/inactive|background/) &&
-          nextState === 'active'
-        ) {
-          loadApps();
-        }
-        appStateRef.current = nextState;
-      },
-    );
+    const subscription = AppState.addEventListener("change", (nextState: AppStateStatus) => {
+      if (appStateRef.current.match(/inactive|background/) && nextState === "active") {
+        loadApps();
+      }
+      appStateRef.current = nextState;
+    });
 
     return () => subscription.remove();
   }, [loadApps]);

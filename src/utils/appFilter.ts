@@ -1,4 +1,4 @@
-import type { InstalledApp } from '../types/app';
+import type { InstalledApp } from "../types/app";
 
 /**
  * Filters an installed-app list by a free-text search query.
@@ -10,9 +10,7 @@ export function filterApps(apps: InstalledApp[], query: string): InstalledApp[] 
   if (q.length === 0) return apps;
 
   return apps.filter(
-    (app) =>
-      app.appName.toLowerCase().includes(q) ||
-      app.packageName.toLowerCase().includes(q),
+    (app) => app.appName.toLowerCase().includes(q) || app.packageName.toLowerCase().includes(q),
   );
 }
 
@@ -22,8 +20,8 @@ export function filterApps(apps: InstalledApp[], query: string): InstalledApp[] 
  */
 export function sortAppsAlphabetical(apps: InstalledApp[]): InstalledApp[] {
   return [...apps].sort((a, b) => {
-    const aBlank = a.appName.trim() === '';
-    const bBlank = b.appName.trim() === '';
+    const aBlank = a.appName.trim() === "";
+    const bBlank = b.appName.trim() === "";
     if (aBlank !== bBlank) return aBlank ? 1 : -1;
 
     const labelCmp = a.appName.toLowerCase().localeCompare(b.appName.toLowerCase());

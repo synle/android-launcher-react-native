@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from "react";
 import {
   StatusBar,
   StyleSheet,
@@ -7,18 +7,18 @@ import {
   ActivityIndicator,
   SafeAreaView,
   TouchableOpacity,
-} from 'react-native';
-import { AppGrid } from './components/AppGrid';
-import { SearchBar } from './components/SearchBar';
-import { DragOverlay } from './components/DragOverlay';
-import { useInstalledApps } from './hooks/useInstalledApps';
-import { DEFAULT_GRID_CONFIG, COLORS } from './utils/constants';
-import { filterApps } from './utils/appFilter';
-import type { InstalledApp, DragState, GridConfig } from './types/app';
+} from "react-native";
+import { AppGrid } from "./components/AppGrid";
+import { SearchBar } from "./components/SearchBar";
+import { DragOverlay } from "./components/DragOverlay";
+import { useInstalledApps } from "./hooks/useInstalledApps";
+import { DEFAULT_GRID_CONFIG, COLORS } from "./utils/constants";
+import { filterApps } from "./utils/appFilter";
+import type { InstalledApp, DragState, GridConfig } from "./types/app";
 
 export default function App() {
   const { apps, loading, error, refresh } = useInstalledApps();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [gridConfig] = useState<GridConfig>(DEFAULT_GRID_CONFIG);
   const [dragState, setDragState] = useState<DragState>({
     isDragging: false,
@@ -27,14 +27,11 @@ export default function App() {
     currentIndex: -1,
   });
 
-  const filteredApps = useMemo(
-    () => filterApps(apps, searchQuery),
-    [apps, searchQuery],
-  );
+  const filteredApps = useMemo(() => filterApps(apps, searchQuery), [apps, searchQuery]);
 
   const handleAppLongPress = useCallback(
     (app: InstalledApp) => {
-      const index = apps.findIndex(a => a.packageName === app.packageName);
+      const index = apps.findIndex((a) => a.packageName === app.packageName);
       setDragState({
         isDragging: true,
         draggedApp: app,
@@ -83,23 +80,16 @@ export default function App() {
       <View style={styles.header}>
         <SearchBar value={searchQuery} onChangeText={setSearchQuery} />
         <Text style={styles.appCount}>
-          {filteredApps.length} app{filteredApps.length !== 1 ? 's' : ''}
+          {filteredApps.length} app{filteredApps.length !== 1 ? "s" : ""}
         </Text>
       </View>
 
-      <AppGrid
-        apps={filteredApps}
-        gridConfig={gridConfig}
-        onAppLongPress={handleAppLongPress}
-      />
+      <AppGrid apps={filteredApps} gridConfig={gridConfig} onAppLongPress={handleAppLongPress} />
 
       <DragOverlay dragState={dragState} onCancel={handleDragCancel} />
 
       {dragState.isDragging && (
-        <TouchableOpacity
-          style={styles.cancelDrag}
-          onPress={handleDragCancel}
-          activeOpacity={0.8}>
+        <TouchableOpacity style={styles.cancelDrag} onPress={handleDragCancel} activeOpacity={0.8}>
           <Text style={styles.cancelText}>Tap to cancel</Text>
         </TouchableOpacity>
       )}
@@ -119,13 +109,13 @@ const styles = StyleSheet.create({
   appCount: {
     color: COLORS.textSecondary,
     fontSize: 12,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 4,
   },
   centered: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: COLORS.background,
   },
   loadingText: {
@@ -136,14 +126,14 @@ const styles = StyleSheet.create({
   errorText: {
     color: COLORS.errorText,
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
     paddingHorizontal: 32,
   },
   retryButton: {
     marginTop: 16,
     paddingHorizontal: 24,
     paddingVertical: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     borderRadius: 8,
   },
   retryText: {
@@ -151,16 +141,16 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   cancelDrag: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 40,
-    alignSelf: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignSelf: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     paddingHorizontal: 24,
     paddingVertical: 10,
     borderRadius: 20,
   },
   cancelText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 14,
   },
 });

@@ -1,14 +1,8 @@
-import React, { useCallback, memo } from 'react';
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-} from 'react-native';
-import LauncherModule from '../native/LauncherModule';
-import type { InstalledApp, GridConfig } from '../types/app';
-import { calculateCellWidth, COLORS } from '../utils/constants';
+import React, { useCallback, memo } from "react";
+import { Image, Text, TouchableOpacity, StyleSheet, View } from "react-native";
+import LauncherModule from "../native/LauncherModule";
+import type { InstalledApp, GridConfig } from "../types/app";
+import { calculateCellWidth, COLORS } from "../utils/constants";
 
 interface AppIconProps {
   app: InstalledApp;
@@ -37,14 +31,12 @@ function AppIconComponent({ app, gridConfig, onLongPress }: AppIconProps) {
       onPress={handlePress}
       onLongPress={handleLongPress}
       activeOpacity={0.7}
-      delayLongPress={300}>
+      delayLongPress={300}
+    >
       <View style={styles.iconContainer}>
         <Image
           source={{ uri: `data:image/png;base64,${app.icon}` }}
-          style={[
-            styles.icon,
-            { width: gridConfig.iconSize, height: gridConfig.iconSize },
-          ]}
+          style={[styles.icon, { width: gridConfig.iconSize, height: gridConfig.iconSize }]}
           resizeMode="contain"
         />
       </View>
@@ -52,7 +44,8 @@ function AppIconComponent({ app, gridConfig, onLongPress }: AppIconProps) {
         <Text
           style={[styles.label, { fontSize: gridConfig.labelSize }]}
           numberOfLines={1}
-          ellipsizeMode="tail">
+          ellipsizeMode="tail"
+        >
           {app.appName}
         </Text>
       )}
@@ -62,11 +55,11 @@ function AppIconComponent({ app, gridConfig, onLongPress }: AppIconProps) {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 10,
   },
   iconContainer: {
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
@@ -78,9 +71,9 @@ const styles = StyleSheet.create({
   label: {
     color: COLORS.textPrimary,
     marginTop: 6,
-    textAlign: 'center',
+    textAlign: "center",
     paddingHorizontal: 4,
-    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowColor: "rgba(0, 0, 0, 0.75)",
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 3,
   },

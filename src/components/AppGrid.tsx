@@ -1,13 +1,8 @@
-import React, { useMemo, useCallback, memo } from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  View,
-  ListRenderItemInfo,
-} from 'react-native';
-import { AppIcon } from './AppIcon';
-import type { InstalledApp, GridConfig } from '../types/app';
-import { GRID_HORIZONTAL_PADDING } from '../utils/constants';
+import React, { useMemo, useCallback, memo } from "react";
+import { FlatList, StyleSheet, View, ListRenderItemInfo } from "react-native";
+import { AppIcon } from "./AppIcon";
+import type { InstalledApp, GridConfig } from "../types/app";
+import { GRID_HORIZONTAL_PADDING } from "../utils/constants";
 
 interface AppGridProps {
   apps: InstalledApp[];
@@ -18,19 +13,12 @@ interface AppGridProps {
 function AppGridComponent({ apps, gridConfig, onAppLongPress }: AppGridProps) {
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<InstalledApp>) => (
-      <AppIcon
-        app={item}
-        gridConfig={gridConfig}
-        onLongPress={onAppLongPress}
-      />
+      <AppIcon app={item} gridConfig={gridConfig} onLongPress={onAppLongPress} />
     ),
     [gridConfig, onAppLongPress],
   );
 
-  const keyExtractor = useCallback(
-    (item: InstalledApp) => item.packageName,
-    [],
-  );
+  const keyExtractor = useCallback((item: InstalledApp) => item.packageName, []);
 
   const getItemLayout = useMemo(() => {
     const ITEM_HEIGHT = gridConfig.iconSize + 40; // icon + padding + label

@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag (e.g. v0.1.0)'
+        description: "Release tag (e.g. v0.1.0)"
         required: true
-        default: 'v0.0.0'
+        default: "v0.0.0"
       notes:
-        description: 'Release notes (markdown)'
+        description: "Release notes (markdown)"
         required: false
-        default: 'Manual release.'
+        default: "Manual release."
 
 permissions:
   contents: write
@@ -24,13 +24,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: "17"
 
       - name: Install npm dependencies
         run: npm ci --legacy-peer-deps || npm install --no-fund --prefer-offline --legacy-peer-deps
@@ -38,7 +38,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.6'
+          gradle-version: "8.6"
 
       - name: Generate debug keystore
         working-directory: android/app
